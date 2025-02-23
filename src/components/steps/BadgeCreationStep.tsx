@@ -2,7 +2,7 @@ import { useAccount } from "../../AccountContext";
 import { ActionBtn } from "../ActionBtn";
 import RnsSDK from "@radixnameservice/rns-sdk";
 
-const ChooseAccountStep = ({ rns }: { rns: RnsSDK }) => {
+const ChooseAccountStep = ({ rns, onSuccess }: { rns: RnsSDK, onSuccess: Function }) => {
 
   const { selectedAccount } = useAccount();
 
@@ -16,7 +16,7 @@ const ChooseAccountStep = ({ rns }: { rns: RnsSDK }) => {
           </p>
           <ActionBtn
             text="Create User Badge"
-            onClick={() => rns.issueUserBadge({ accountAddress: selectedAccount })}
+            onClick={() => rns.issueUserBadge({ accountAddress: selectedAccount, callbacks: { onSuccess } })}
           />
         </div>
       </div>

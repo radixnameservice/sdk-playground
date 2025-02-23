@@ -38,7 +38,6 @@ function App({ rns }: { rns: RnsSDK }) {
 
   const isWalletConnected = rdt?.walletApi.getWalletData()?.accounts.length ? true : false;
 
-
   const showStep = {
 
     walletConnection: !isWalletConnected,
@@ -53,7 +52,7 @@ function App({ rns }: { rns: RnsSDK }) {
       <main>
         {showStep.walletConnection && <ConnectWalletStep />}
         {showStep.accountSelection && <ChooseAccountStep />}
-        {showStep.badgeCreation && <BadgeCreationStep rns={rns} />}
+        {showStep.badgeCreation && <BadgeCreationStep rns={rns} onSuccess={fetchUserBadge} />}
       </main>
     </>
   );
