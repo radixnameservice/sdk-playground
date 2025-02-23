@@ -7,9 +7,11 @@ import Navbar from "./components/Navbar";
 import ConnectWalletStep from "./components/steps/ConnectWalletStep";
 import ChooseAccountStep from "./components/steps/ChooseAccountStep";
 import BadgeCreationStep from "./components/steps/BadgeCreationStep";
+import DomainSearchStep from "./components/steps/DomainSearchStep";
 
 import "./App.css";
 import { useEffect, useState } from "react";
+
 
 
 function App({ rns }: { rns: RnsSDK }) {
@@ -42,7 +44,8 @@ function App({ rns }: { rns: RnsSDK }) {
 
     walletConnection: !isWalletConnected,
     accountSelection: isWalletConnected && !selectedAccount,
-    badgeCreation: isWalletConnected && selectedAccount && !userBadgeId
+    badgeCreation: isWalletConnected && selectedAccount && !userBadgeId,
+    domainSearch: isWalletConnected && selectedAccount && userBadgeId,
 
   };
 
@@ -53,6 +56,7 @@ function App({ rns }: { rns: RnsSDK }) {
         {showStep.walletConnection && <ConnectWalletStep />}
         {showStep.accountSelection && <ChooseAccountStep />}
         {showStep.badgeCreation && <BadgeCreationStep rns={rns} onSuccess={fetchUserBadge} />}
+        {showStep.domainSearch && <DomainSearchStep />}
       </main>
     </>
   );
