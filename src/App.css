@@ -532,6 +532,13 @@ h3 {
   cursor: pointer;
 }
 
+input[type="text"] {
+  padding: 1.2rem;
+  border-radius: 8px;
+  border:none;
+  width: 100%;
+}
+
 .account-appearance-0 {
   background: var(--account-appearance-0);
 }
