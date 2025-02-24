@@ -10,6 +10,8 @@ interface AccountContextType {
   setAccounts: (accounts: WalletDataStateAccount[]) => void;
   selectedAccount: string;
   setSelectedAccount: (account: string) => void;
+  userBadgeId: null | string,
+  setUserBadgeId: (account: string | null) => void;
 }
 
 const AccountContext = createContext<AccountContextType>({
@@ -17,6 +19,8 @@ const AccountContext = createContext<AccountContextType>({
   setAccounts: () => { },
   selectedAccount: "",
   setSelectedAccount: () => { },
+  userBadgeId: null,
+  setUserBadgeId: () => { },
 });
 
 export const useAccount = () => useContext(AccountContext);
@@ -28,6 +32,7 @@ export const AccountProvider = ({
 }) => {
   const [accounts, setAccounts] = useState<WalletDataStateAccount[]>([]);
   const [selectedAccount, setSelectedAccount] = useState<string>("");
+  const [userBadgeId, setUserBadgeId] = useState<string | null>(null);
 
   const rdt = useRdt();
 
@@ -44,7 +49,7 @@ export const AccountProvider = ({
 
   return (
     <AccountContext.Provider
-      value={{ accounts, setAccounts, selectedAccount, setSelectedAccount }}
+      value={{ accounts, setAccounts, selectedAccount, setSelectedAccount, userBadgeId, setUserBadgeId }}
     >
       {children}
     </AccountContext.Provider>

@@ -16,9 +16,8 @@ import { useEffect, useState } from "react";
 
 function App({ rns }: { rns: RnsSDK }) {
 
-  const { selectedAccount } = useAccount();
+  const { selectedAccount, userBadgeId, setUserBadgeId } = useAccount();
   const rdt = useRdt();
-  const [userBadgeId, setUserBadgeId] = useState<string | null>(null);
 
   useEffect(() => {
 
@@ -56,7 +55,7 @@ function App({ rns }: { rns: RnsSDK }) {
         {showStep.walletConnection && <ConnectWalletStep />}
         {showStep.accountSelection && <ChooseAccountStep />}
         {showStep.badgeCreation && <BadgeCreationStep rns={rns} onSuccess={fetchUserBadge} />}
-        {showStep.domainSearch && <DomainSearchStep />}
+        {showStep.domainSearch && <DomainSearchStep rns={rns} onRegistration={() => null} />}
       </main>
     </>
   );
