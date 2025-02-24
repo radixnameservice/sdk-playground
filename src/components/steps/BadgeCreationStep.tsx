@@ -6,6 +6,12 @@ const ChooseAccountStep = ({ rns, onSuccess }: { rns: RnsSDK, onSuccess: Functio
 
   const { selectedAccount } = useAccount();
 
+  function issueUserBadge() {
+
+    rns.issueUserBadge({ accountAddress: selectedAccount, callbacks: { onSuccess } });
+
+  }
+
   return (
     <>
       <div className="playground-step-container">
@@ -16,7 +22,7 @@ const ChooseAccountStep = ({ rns, onSuccess }: { rns: RnsSDK, onSuccess: Functio
           </p>
           <ActionBtn
             text="Create User Badge"
-            onClick={() => rns.issueUserBadge({ accountAddress: selectedAccount, callbacks: { onSuccess } })}
+            onClick={issueUserBadge}
           />
         </div>
       </div>
