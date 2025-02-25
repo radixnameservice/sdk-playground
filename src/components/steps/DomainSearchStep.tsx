@@ -9,11 +9,13 @@ const DomainSearchStep = ({ rns, onRegistration }: { rns: RnsSDK, onRegistration
   const [domain, setDomain] = useState("");
   const [isAvailable, setIsAvailable] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
+  const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function getDomainAvailability() {
     // Reset previous state
     setStatusMessage("");
+    setPrice("");
     setIsAvailable(false);
 
     // Validate the domain using your existing validation
@@ -35,9 +37,11 @@ const DomainSearchStep = ({ rns, onRegistration }: { rns: RnsSDK, onRegistration
         if (domainStatus?.status === "available") {
           setIsAvailable(true);
           setStatusMessage(domainStatus.verbose);
+          setPrice(`Price: ${domainStatus.price?.xrd} XRD ($${domainStatus.price?.usd})`);
         } else {
           setIsAvailable(false);
           setStatusMessage(domainStatus?.verbose || "Domain is not available.");
+          setPrice("");
         }
       }
     } catch (error) {
@@ -50,6 +54,7 @@ const DomainSearchStep = ({ rns, onRegistration }: { rns: RnsSDK, onRegistration
   function registrationSuccess() {
     // Reset fields upon successful registration
     setDomain("");
+    setPrice("");
     setIsAvailable(false);
     setStatusMessage("");
     onRegistration();
@@ -64,7 +69,7 @@ const DomainSearchStep = ({ rns, onRegistration }: { rns: RnsSDK, onRegistration
         userDetails: { accountAddress: selectedAccount, badgeId: userBadgeId ?? "" },
         callbacks: { onSuccess: registrationSuccess }
       });
-      
+
     } catch (err) {
       setStatusMessage("Registration failed. Please try again.");
     }
@@ -81,6 +86,7 @@ const DomainSearchStep = ({ rns, onRegistration }: { rns: RnsSDK, onRegistration
           value={domain}
           onChange={(e) => {
             setDomain(e.target.value);
+            setPrice("");
             setStatusMessage("");
             setIsAvailable(false);
           }}
@@ -103,6 +109,11 @@ const DomainSearchStep = ({ rns, onRegistration }: { rns: RnsSDK, onRegistration
         {statusMessage && (
           <p className="status-message" style={{ color: isAvailable ? "green" : "red" }}>
             {statusMessage}
+          </p>
+        )}
+        {price && (
+          <p className="status-message" style={{ color: "black" }}>
+            {price}
           </p>
         )}
         <ActionBtn
