@@ -11,7 +11,7 @@ import { dAppDefinitionAddress } from "./constants.js";
 
 // Instantiate Radix Dapp Toolkit for connect button and wallet usage.
 const rdt = RadixDappToolkit({
-  networkId: RadixNetwork.Stokenet,
+  networkId: RadixNetwork.Mainnet,
   applicationVersion: "1.0.0",
   applicationName: "RNS SDK Playground",
   applicationDappDefinitionAddress: dAppDefinitionAddress,
@@ -22,7 +22,7 @@ console.log("dApp Toolkit: ", rdt);
 const gateway = GatewayApiClient.initialize(rdt.gatewayApi.clientConfig);
 console.log("dApp Toolkit: ", rdt);
 
-const rns = new RnsSDK({ network: 'stokenet', rdt, gateway });
+const rns = new RnsSDK({ network: 'mainnet', rdt, gateway });
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
