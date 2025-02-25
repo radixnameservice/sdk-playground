@@ -14,7 +14,7 @@ const rdt = RadixDappToolkit({
   networkId: RadixNetwork.Mainnet,
   applicationVersion: "1.0.0",
   applicationName: "RNS SDK Playground",
-  applicationDappDefinitionAddress: dAppDefinitionAddress,
+  applicationDappDefinitionAddress: "account_rdx12yctqxnlfqjyn68hrtnxjxkqcvs6hcg4sa6fnst9gfkpruzfeanjke",
 });
 
 console.log("dApp Toolkit: ", rdt);
