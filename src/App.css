@@ -624,3 +624,157 @@ input[type="text"] {
 .account-appearance-11 {
   background: var(--account-appearance-11);
 }
+
+/* Domain List Component Styles */
+.domain-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.domain-item {
+  background: var(--grey-4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+/* Domain header now uses an arrow icon */
+.domain-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  background-color: var(--grey-2);
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.domain-header:hover {
+  background-color: var(--grey-1);
+}
+
+/* Arrow icon styles */
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.75rem;
+  transition: transform 0.3s ease;
+  fill: var(--grey-6);
+}
+
+.arrow-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.domain-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--grey-6);
+  flex-grow: 1;
+}
+
+.domain-details {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Subdomains & Records Sections */
+.subdomains-section,
+.records-section {
+  background-color: var(--grey-2);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.subdomains-section h4,
+.records-section h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--grey-6);
+}
+
+.subdomain-list,
+.record-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.subdomain-item,
+.record-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--grey-4);
+}
+
+.subdomain-item:last-child,
+.record-item:last-child {
+  border-bottom: none;
+}
+
+/* Form Styles for Adding Subdomains/Records */
+.add-subdomain-form,
+.add-record-form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.add-subdomain-form input,
+.add-record-form input,
+.add-record-form select {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--grey-4);
+  background: var(--grey-2);
+  color: var(--grey-6);
+  font-size: 1rem;
+}
+
+.add-subdomain-form button,
+.add-record-form button {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--rns-blue);
+  color: var(--grey-6);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-subdomain-form button:hover,
+.add-record-form button:hover {
+  background: var(--radix-pink);
+}
+
+/* Domain List Buttons */
+.domain-item button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--rns-blue);
+  color: var(--grey-6);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-left: 0.5rem;
+}
+
+.domain-item button:hover {
+  background: var(--radix-pink);
+}
+
+.domain-item button:disabled {
+  background: var(--grey-4);
+  cursor: not-allowed;
+}
