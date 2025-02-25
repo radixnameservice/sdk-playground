@@ -1,4 +1,4 @@
-import RnsSDK, { DomainListResponseT, ErrorStackResponseI, UserBadgeResponseT } from "@radixnameservice/rns-sdk";
+import RnsSDK, { DomainListResponseT } from "@radixnameservice/rns-sdk";
 import { useAccount } from "./AccountContext";
 import { useRdt } from "./hooks/useRdt";
 
@@ -71,7 +71,7 @@ function App({ rns }: { rns: RnsSDK }) {
         {showStep.accountSelection && <ChooseAccountStep />}
         {showStep.badgeCreation && <BadgeCreationStep rns={rns} onSuccess={fetchUserBadge} />}
         {showStep.domainSearch && <DomainSearchStep rns={rns} onRegistration={fetchUserDomains} />}
-        {showStep.domainSearch && <DomainList domains={domainList} />}
+        {showStep.domainSearch && <DomainList rns={rns} domains={domainList} onUpdate={fetchUserDomains} />}
       </main>
     </>
   );
