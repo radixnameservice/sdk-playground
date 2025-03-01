@@ -66,7 +66,7 @@ const DomainSearchStep = ({ rns, onRegistration }: { rns: RnsSDK, onRegistration
 
       const registrationResult = await rns.registerDomain({
         domain,
-        userDetails: { accountAddress: selectedAccount, badgeId: userBadgeId ?? "" },
+        accountAddress: selectedAccount,
         callbacks: { onSuccess: registrationSuccess }
       });
 

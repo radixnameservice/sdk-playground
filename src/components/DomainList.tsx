@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import RnsSDK, { DomainDataI, DomainListResponseT, RecordDocketI, RecordItemI, UserDetailsI } from "@radixnameservice/rns-sdk";
+import RnsSDK, { DomainDataI, DomainListResponseT, RecordDocketI, RecordItemI } from "@radixnameservice/rns-sdk";
 import { useAccount } from "../AccountContext";
 
 interface DomainListProps {
@@ -23,7 +23,7 @@ const DomainList = ({ domains, rns, onUpdate }: DomainListProps) => {
                 key={domain.id}
                 domain={domain}
                 rns={rns}
-                userDetails={{ accountAddress: selectedAccount, badgeId: userBadgeId ?? "" }}
+                accountAddress={selectedAccount}
                 onUpdate={onUpdate}
               />
             ))}
@@ -37,11 +37,11 @@ const DomainList = ({ domains, rns, onUpdate }: DomainListProps) => {
 interface DomainItemProps {
   domain: DomainDataI;
   rns: RnsSDK;
-  userDetails: UserDetailsI;
+  accountAddress: string;
   onUpdate: () => void;
 }
 
-const DomainItem = ({ domain, rns, userDetails, onUpdate }: DomainItemProps) => {
+const DomainItem = ({ domain, rns, accountAddress, onUpdate }: DomainItemProps) => {
   const [expanded, setExpanded] = useState(false);
   const [records, setRecords] = useState<RecordItemI[]>([]);
   const [loadingRecords, setLoadingRecords] = useState(false);
@@ -90,7 +90,7 @@ const DomainItem = ({ domain, rns, userDetails, onUpdate }: DomainItemProps) => 
     try {
       await rns.createSubdomain({
         subdomain: `${newSubdomain}.${domain.name}`,
-        userDetails
+        accountAddress
       });
       onUpdate();
       setNewSubdomain("");
@@ -104,7 +104,7 @@ const DomainItem = ({ domain, rns, userDetails, onUpdate }: DomainItemProps) => 
     try {
       await rns.deleteSubdomain({
         subdomain: `${subdomainName}`,
-        userDetails
+        accountAddress
       });
       onUpdate();
     } catch (error) {
@@ -128,7 +128,7 @@ const DomainItem = ({ domain, rns, userDetails, onUpdate }: DomainItemProps) => 
       };
       await rns.createRecord({
         domain: domain.name,
-        userDetails,
+        accountAddress,
         docket
       });
       onUpdate();
@@ -150,7 +150,7 @@ const DomainItem = ({ domain, rns, userDetails, onUpdate }: DomainItemProps) => 
       const docket = { context: record.context, directive: record.directive, value: record.value };
       await rns.deleteRecord({
         domain: domain.name,
-        userDetails,
+        accountAddress,
         docket
       });
       onUpdate();
@@ -175,7 +175,7 @@ const DomainItem = ({ domain, rns, userDetails, onUpdate }: DomainItemProps) => 
       };
       await rns.amendRecord({
         domain: domain.name,
-        userDetails,
+        accountAddress,
         docket
       });
       onUpdate();
