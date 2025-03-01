@@ -9,7 +9,7 @@ interface DomainListProps {
 }
 
 const DomainList = ({ domains, rns, onUpdate }: DomainListProps) => {
-  const { selectedAccount, userBadgeId } = useAccount();
+  const { selectedAccount } = useAccount();
 
   return (
     <div className="playground-step-container">

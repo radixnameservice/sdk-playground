@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar";
 
 import ConnectWalletStep from "./components/steps/ConnectWalletStep";
 import ChooseAccountStep from "./components/steps/ChooseAccountStep";
-import BadgeCreationStep from "./components/steps/BadgeCreationStep";
 import DomainSearchStep from "./components/steps/DomainSearchStep";
 
 import "./App.css";
@@ -15,30 +14,16 @@ import DomainList from "./components/DomainList";
 
 function App({ rns }: { rns: RnsSDK }) {
 
-  const { selectedAccount, userBadgeId, setUserBadgeId } = useAccount();
+  const { selectedAccount } = useAccount();
   const [domainList, setDomainList] = useState<DomainListResponseT | null>(null);
   const rdt = useRdt();
 
   useEffect(() => {
 
-    fetchUserBadge();
     fetchUserDomains();
 
   }, [selectedAccount]);
 
-  async function fetchUserBadge() {
-
-    if (!selectedAccount) return;
-
-    const userBadge = await rns.getUserBadge({ accountAddress: selectedAccount });
-
-    if ('errors' in userBadge) {
-      return setUserBadgeId(null);
-    }
-
-    setUserBadgeId(userBadge.id);
-
-  }
 
   async function fetchUserDomains() {
 
@@ -58,8 +43,7 @@ function App({ rns }: { rns: RnsSDK }) {
 
     walletConnection: !isWalletConnected,
     accountSelection: isWalletConnected && !selectedAccount,
-    badgeCreation: isWalletConnected && selectedAccount && !userBadgeId,
-    domainSearch: isWalletConnected && selectedAccount && userBadgeId,
+    domainSearch: isWalletConnected && selectedAccount,
 
   };
 
@@ -69,7 +53,6 @@ function App({ rns }: { rns: RnsSDK }) {
       <main>
         {showStep.walletConnection && <ConnectWalletStep />}
         {showStep.accountSelection && <ChooseAccountStep />}
-        {showStep.badgeCreation && <BadgeCreationStep rns={rns} onSuccess={fetchUserBadge} />}
         {showStep.domainSearch && <DomainSearchStep rns={rns} onRegistration={fetchUserDomains} />}
         {showStep.domainSearch && <DomainList rns={rns} domains={domainList} onUpdate={fetchUserDomains} />}
       </main>

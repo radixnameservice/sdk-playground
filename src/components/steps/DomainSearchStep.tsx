@@ -5,7 +5,7 @@ import RnsSDK from "@radixnameservice/rns-sdk";
 import Spinner from "../Spinner";
 
 const DomainSearchStep = ({ rns, onRegistration }: { rns: RnsSDK, onRegistration: Function }) => {
-  const { selectedAccount, userBadgeId } = useAccount();
+  const { selectedAccount } = useAccount();
   const [domain, setDomain] = useState("");
   const [isAvailable, setIsAvailable] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
