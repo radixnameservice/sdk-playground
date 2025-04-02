@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import RnsSDK, { DomainDataI, DomainListResponseT, RecordDocketI, RecordItemI } from "@radixnameservice/rns-sdk";
+import RnsSDK, { DomainDataI, RecordDocketI, RecordItemI } from "@radixnameservice/rns-sdk";
 import { useAccount } from "../AccountContext";
 
 interface DomainListProps {
-  domains: DomainListResponseT | null;
+  domains: DomainDataI[] | null;
   rns: RnsSDK;
   onUpdate: () => void;
 }
@@ -68,8 +68,8 @@ const DomainItem = ({ domain, rns, accountAddress, onUpdate }: DomainItemProps) 
         setLoadingRecords(true);
         try {
           const fetchedRecords = await rns.getRecords({ domain: domain.name });
-          if (!("errors" in fetchedRecords)) {
-            setRecords(fetchedRecords);
+          if (!fetchedRecords.errors) {
+            setRecords(fetchedRecords.data);
           } else {
             console.error("Error fetching records", fetchedRecords);
           }
@@ -134,8 +134,8 @@ const DomainItem = ({ domain, rns, accountAddress, onUpdate }: DomainItemProps) 
       onUpdate();
       // Refresh records list after adding
       const updatedRecords = await rns.getRecords({ domain: domain.name });
-      if (!("errors" in updatedRecords)) {
-        setRecords(updatedRecords);
+      if (!updatedRecords.errors) {
+        setRecords(updatedRecords.data);
       }
       setNewRecord({ directive: "", context: "", platformIdentifier: "RNS Playground", value: "" });
       setShowAddRecord(false);
@@ -155,8 +155,8 @@ const DomainItem = ({ domain, rns, accountAddress, onUpdate }: DomainItemProps) 
       });
       onUpdate();
       const updatedRecords = await rns.getRecords({ domain: domain.name });
-      if (!("errors" in updatedRecords)) {
-        setRecords(updatedRecords);
+      if (!updatedRecords.errors) {
+        setRecords(updatedRecords.data);
       }
     } catch (error) {
       console.error("Failed to delete record", error);
@@ -180,8 +180,8 @@ const DomainItem = ({ domain, rns, accountAddress, onUpdate }: DomainItemProps) 
       });
       onUpdate();
       const updatedRecords = await rns.getRecords({ domain: domain.name });
-      if (!("errors" in updatedRecords)) {
-        setRecords(updatedRecords);
+      if (!updatedRecords.errors) {
+        setRecords(updatedRecords.data);
       }
     } catch (error) {
       console.error("Failed to amend record", error);

@@ -1,4 +1,4 @@
-import RnsSDK, { DomainListResponseT } from "@radixnameservice/rns-sdk";
+import RnsSDK, { DomainDataI } from "@radixnameservice/rns-sdk";
 import { useAccount } from "./AccountContext";
 import { useRdt } from "./hooks/useRdt";
 
@@ -15,7 +15,7 @@ import DomainList from "./components/DomainList";
 function App({ rns }: { rns: RnsSDK }) {
 
   const { selectedAccount } = useAccount();
-  const [domainList, setDomainList] = useState<DomainListResponseT | null>(null);
+  const [domainList, setDomainList] = useState<DomainDataI[] | null>(null);
   const rdt = useRdt();
 
   useEffect(() => {
@@ -31,8 +31,8 @@ function App({ rns }: { rns: RnsSDK }) {
 
     const domainList = await rns.getAccountDomains({ accountAddress: selectedAccount });
 
-    if (!('errors' in domainList)) {
-      return setDomainList(domainList);
+    if (!domainList?.errors) {
+      return setDomainList(domainList.data);
     }
 
   }
