@@ -147,7 +147,7 @@ const DomainItem = ({ domain, rns, accountAddress, onUpdate }: DomainItemProps) 
   // Updated delete record function – we now pass a docket with a directive (record id)
   const handleDeleteRecord = async (record: RecordItemI) => {
     try {
-      const docket = { context: record.context, directive: record.directive, value: record.value };
+      const docket = { context: record.context, directive: record.directive, proven: record.proven, value: record.value };
       await rns.deleteRecord({
         domain: domain.name,
         accountAddress,
@@ -164,12 +164,15 @@ const DomainItem = ({ domain, rns, accountAddress, onUpdate }: DomainItemProps) 
   };
 
   const handleAmendRecord = async (record: RecordItemI) => {
+
     const amendedValue = prompt("Enter new value:", record.value || "");
     if (amendedValue === null) return;
+    
     try {
       const docket = {
         context: record.context,
         directive: record.directive,
+        proven: record.proven,
         platformIdentifier: "RNS Playground",
         value: amendedValue
       };
